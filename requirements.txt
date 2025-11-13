@@ -1,7 +1,4 @@
-streamlit as st
-pandas as pd
-numpy as np
-plotly.graph_objects as go
-plotly.express as px
-datetime import datetime, timedelta
-json
+streamlit
+pandas
+numpy
+plotly
