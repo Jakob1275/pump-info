@@ -1,10 +1,17 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import plotly.graph_objects as go
-import plotly.express as px
 from datetime import datetime, timedelta
 import json
+
+try:
+    import plotly.graph_objects as go
+    import plotly.express as px
+    PLOTLY_AVAILABLE = True
+except ImportError:
+    PLOTLY_AVAILABLE = False
+    st.error("⚠️ Plotly ist nicht installiert. Bitte installieren Sie es mit: pip install plotly")
+    st.stop()
 
 # Seitenkonfiguration
 st.set_page_config(
