@@ -753,7 +753,7 @@ st.markdown("""
             </div>
             <div>
                 <p style='margin: 5px 0;'>📞 Support: +49 (0) 234 123456</p>
-                <p style='margin: 5px 0;'>📧 service@edur.de</p>
+                <p style='margin: 5px 0;'>📧 service@.de</p>
             </div>
             <div>
                 <p style='margin: 5px 0;'>🕐 Letzte Aktualisierung:</p>
