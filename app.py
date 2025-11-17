@@ -15,41 +15,175 @@ except ImportError:
 
 # Seitenkonfiguration
 st.set_page_config(
-    page_title="Pumpen-Monitoring System",
-    page_icon="🔧",
+    page_title="EDUR PumpVision | Pump Monitoring System",
+    page_icon="💧",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
-# Custom CSS für industrielles Design
+# Custom CSS im EDUR-Design (Petrol/Blau mit geschwungenen Elementen)
 st.markdown("""
     <style>
+    /* EDUR Farbschema */
+    :root {
+        --edur-petrol: #005C7F;
+        --edur-light-blue: #A5D8E6;
+        --edur-dark-blue: #003D54;
+        --edur-accent: #7EC8E3;
+    }
+    
+    /* Haupthintergrund */
     .main {
-        background-color: #f0f2f6;
+        background: linear-gradient(135deg, #f8fbfd 0%, #e8f4f8 100%);
     }
+    
+    /* Header mit EDUR-Welleneffekt */
+    .edur-header {
+        background: linear-gradient(135deg, var(--edur-petrol) 0%, var(--edur-dark-blue) 100%);
+        color: white;
+        padding: 25px;
+        border-radius: 0 0 30px 30px;
+        margin-bottom: 30px;
+        box-shadow: 0 4px 15px rgba(0, 92, 127, 0.2);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .edur-header::after {
+        content: '';
+        position: absolute;
+        bottom: -20px;
+        left: 0;
+        width: 100%;
+        height: 40px;
+        background: var(--edur-light-blue);
+        opacity: 0.3;
+        border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+    }
+    
+    .edur-logo-text {
+        font-size: 2.5em;
+        font-weight: bold;
+        color: white;
+        margin: 0;
+        letter-spacing: 2px;
+    }
+    
+    .edur-subtitle {
+        font-size: 1.2em;
+        color: var(--edur-light-blue);
+        margin-top: 5px;
+    }
+    
+    /* Sidebar Styling */
+    [data-testid="stSidebar"] {
+        background: linear-gradient(180deg, var(--edur-petrol) 0%, var(--edur-dark-blue) 100%);
+    }
+    
+    [data-testid="stSidebar"] * {
+        color: white !important;
+    }
+    
+    [data-testid="stSidebar"] .stRadio > label {
+        background-color: rgba(255, 255, 255, 0.1);
+        padding: 10px;
+        border-radius: 8px;
+        margin: 5px 0;
+        border-left: 4px solid var(--edur-accent);
+    }
+    
+    /* Metriken mit EDUR-Styling */
     .stMetric {
-        background-color: white;
-        padding: 15px;
-        border-radius: 5px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        background: white;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 92, 127, 0.15);
+        border-top: 4px solid var(--edur-petrol);
     }
+    
+    /* Alarme im EDUR-Design */
     .alarm-high {
-        background-color: #ffebee;
-        border-left: 5px solid #f44336;
-        padding: 10px;
-        margin: 5px 0;
+        background: linear-gradient(135deg, #fff5f5 0%, #ffe6e6 100%);
+        border-left: 5px solid #d32f2f;
+        padding: 15px;
+        margin: 8px 0;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(211, 47, 47, 0.2);
     }
+    
     .alarm-medium {
-        background-color: #fff3e0;
-        border-left: 5px solid #ff9800;
-        padding: 10px;
-        margin: 5px 0;
+        background: linear-gradient(135deg, #fffbf0 0%, #fff4e0 100%);
+        border-left: 5px solid #f57c00;
+        padding: 15px;
+        margin: 8px 0;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(245, 124, 0, 0.2);
     }
+    
     .alarm-low {
-        background-color: #e3f2fd;
-        border-left: 5px solid #2196f3;
-        padding: 10px;
-        margin: 5px 0;
+        background: linear-gradient(135deg, #f0f8ff 0%, #e3f2fd 100%);
+        border-left: 5px solid var(--edur-petrol);
+        padding: 15px;
+        margin: 8px 0;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 92, 127, 0.2);
+    }
+    
+    /* Buttons im EDUR-Design */
+    .stButton > button {
+        background: linear-gradient(135deg, var(--edur-petrol) 0%, var(--edur-dark-blue) 100%);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 12px 24px;
+        font-weight: 600;
+        box-shadow: 0 4px 12px rgba(0, 92, 127, 0.3);
+        transition: all 0.3s ease;
+    }
+    
+    .stButton > button:hover {
+        background: linear-gradient(135deg, var(--edur-dark-blue) 0%, var(--edur-petrol) 100%);
+        box-shadow: 0 6px 16px rgba(0, 92, 127, 0.4);
+        transform: translateY(-2px);
+    }
+    
+    /* Tabs im EDUR-Design */
+    .stTabs [data-baseweb="tab-list"] {
+        background-color: white;
+        border-radius: 12px;
+        padding: 5px;
+        box-shadow: 0 2px 8px rgba(0, 92, 127, 0.1);
+    }
+    
+    .stTabs [data-baseweb="tab"] {
+        background-color: transparent;
+        border-radius: 8px;
+        color: var(--edur-petrol);
+        font-weight: 600;
+    }
+    
+    .stTabs [aria-selected="true"] {
+        background: linear-gradient(135deg, var(--edur-petrol) 0%, var(--edur-dark-blue) 100%);
+        color: white !important;
+    }
+    
+    /* Welleneffekt für Abschnitte */
+    .wave-divider {
+        height: 30px;
+        background: var(--edur-light-blue);
+        opacity: 0.2;
+        border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+        margin: 20px 0;
+    }
+    
+    /* Footer im EDUR-Design */
+    .edur-footer {
+        background: linear-gradient(135deg, var(--edur-petrol) 0%, var(--edur-dark-blue) 100%);
+        color: white;
+        padding: 20px;
+        border-radius: 30px 30px 0 0;
+        margin-top: 40px;
+        text-align: center;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -119,7 +253,14 @@ if 'pump_data' not in st.session_state:
 if 'alarm_data' not in st.session_state:
     st.session_state.alarm_data = generate_alarm_data()
 
-# Sidebar Navigation
+# Sidebar Navigation mit EDUR-Branding
+st.sidebar.markdown("""
+    <div style='text-align: center; padding: 20px 0; border-bottom: 2px solid rgba(255,255,255,0.2); margin-bottom: 20px;'>
+        <h1 style='color: white; font-size: 2em; letter-spacing: 3px; margin: 0;'>EDUR</h1>
+        <p style='color: #A5D8E6; font-size: 0.9em; margin: 5px 0 0 0;'>PumpVision®</p>
+    </div>
+""", unsafe_allow_html=True)
+
 st.sidebar.title("🔧 Navigation")
 page = st.sidebar.radio(
     "Bereich auswählen:",
@@ -147,7 +288,14 @@ if pump_filter:
 
 # ========== DASHBOARD ==========
 if page == "📊 Dashboard":
-    st.title("🖥️ Pumpen-Monitoring Dashboard")
+    # EDUR Header
+    st.markdown("""
+        <div class="edur-header">
+            <h1 class="edur-logo-text">EDUR PumpVision</h1>
+            <p class="edur-subtitle">Intelligentes Pumpen-Monitoring System</p>
+        </div>
+    """, unsafe_allow_html=True)
+    
     st.markdown("**Übersicht auf einen Blick** • Letzte Aktualisierung: " + datetime.now().strftime("%d.%m.%Y %H:%M:%S"))
     
     # Top Metriken
@@ -249,7 +397,13 @@ if page == "📊 Dashboard":
 
 # ========== PUMPENDETAILS ==========
 elif page == "🔍 Pumpendetails":
-    st.title("🔍 Pumpendetails")
+    # EDUR Header
+    st.markdown("""
+        <div class="edur-header">
+            <h1 class="edur-logo-text">EDUR PumpVision</h1>
+            <p class="edur-subtitle">Detailansicht & Diagnose</p>
+        </div>
+    """, unsafe_allow_html=True)
     
     selected_pump = st.selectbox(
         "Pumpe auswählen:",
@@ -395,7 +549,13 @@ elif page == "🔍 Pumpendetails":
 
 # ========== ALARMMANAGEMENT ==========
 elif page == "⚠️ Alarmmanagement":
-    st.title("⚠️ Alarmmanagement")
+    # EDUR Header
+    st.markdown("""
+        <div class="edur-header">
+            <h1 class="edur-logo-text">EDUR PumpVision</h1>
+            <p class="edur-subtitle">Alarmmanagement & Monitoring</p>
+        </div>
+    """, unsafe_allow_html=True)
     
     # Filter
     col1, col2, col3 = st.columns(3)
@@ -438,7 +598,13 @@ elif page == "⚠️ Alarmmanagement":
 
 # ========== BERICHTE & ANALYSEN ==========
 elif page == "📈 Berichte & Analysen":
-    st.title("📈 Berichte & Analysen")
+    # EDUR Header
+    st.markdown("""
+        <div class="edur-header">
+            <h1 class="edur-logo-text">EDUR PumpVision</h1>
+            <p class="edur-subtitle">Berichte & Performance-Analysen</p>
+        </div>
+    """, unsafe_allow_html=True)
     
     tab1, tab2, tab3 = st.tabs(["⚡ Energieverbrauch", "⏱️ Ausfallzeiten", "💰 Wartungskosten"])
     
@@ -524,7 +690,13 @@ elif page == "📈 Berichte & Analysen":
 
 # ========== WARTUNGSPLANUNG ==========
 elif page == "🛠️ Wartungsplanung":
-    st.title("🛠️ Wartungsplanung")
+    # EDUR Header
+    st.markdown("""
+        <div class="edur-header">
+            <h1 class="edur-logo-text">EDUR PumpVision</h1>
+            <p class="edur-subtitle">Wartungsplanung & Service</p>
+        </div>
+    """, unsafe_allow_html=True)
     
     # Fällige Wartungen
     st.subheader("📅 Anstehende Wartungen")
@@ -572,22 +744,36 @@ elif page == "🛠️ Wartungsplanung":
 
 # Footer
 st.markdown("---")
-col1, col2, col3 = st.columns(3)
-with col1:
-    st.caption("🔧 Pumpen-Monitoring System v2.0")
-with col2:
-    st.caption(f"Letzte Aktualisierung: {datetime.now().strftime('%d.%m.%Y %H:%M:%S')}")
-with col3:
-    st.caption("📞 Support: +49 (0) 234 123456")
+st.markdown("""
+    <div class="edur-footer">
+        <div style='display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap;'>
+            <div>
+                <h2 style='margin: 0; letter-spacing: 3px;'>EDUR</h2>
+                <p style='margin: 5px 0; color: #A5D8E6;'>PumpVision® v2.0</p>
+            </div>
+            <div>
+                <p style='margin: 5px 0;'>📞 Support: +49 (0) 234 123456</p>
+                <p style='margin: 5px 0;'>📧 service@edur.de</p>
+            </div>
+            <div>
+                <p style='margin: 5px 0;'>🕐 Letzte Aktualisierung:</p>
+                <p style='margin: 5px 0;'>{}</p>
+            </div>
+        </div>
+        <p style='margin-top: 15px; font-size: 0.8em; opacity: 0.7;'>© 2024 EDUR-Pumpenfabrik Eduard Redlien GmbH & Co. KG</p>
+    </div>
+""".format(datetime.now().strftime("%d.%m.%Y %H:%M:%S")), unsafe_allow_html=True)
 
 # Sidebar Footer
 st.sidebar.markdown("---")
-st.sidebar.info("""
-**ℹ️ Hinweise:**
-- Echtzeit-Updates alle 30 Sekunden
-- Alle Daten DSGVO-konform gespeichert
-- Für technischen Support kontaktieren Sie das Service-Team
-""")
+st.sidebar.markdown("""
+    <div style='background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px; margin-top: 20px;'>
+        <p style='margin: 5px 0; font-size: 0.9em;'><strong>ℹ️ System-Info</strong></p>
+        <p style='margin: 5px 0; font-size: 0.85em;'>• Echtzeit-Updates alle 30s</p>
+        <p style='margin: 5px 0; font-size: 0.85em;'>• DSGVO-konform</p>
+        <p style='margin: 5px 0; font-size: 0.85em;'>• TÜV-zertifiziert</p>
+    </div>
+""", unsafe_allow_html=True)
 
 # Auto-Refresh Option
 st.sidebar.markdown("---")
