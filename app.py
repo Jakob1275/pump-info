@@ -257,7 +257,7 @@ if 'alarm_data' not in st.session_state:
 st.sidebar.markdown("""
     <div style='text-align: center; padding: 20px 0; border-bottom: 2px solid rgba(255,255,255,0.2); margin-bottom: 20px;'>
         <h1 style='color: white; font-size: 2em; letter-spacing: 3px; margin: 0;'>EDUR</h1>
-        <p style='color: #A5D8E6; font-size: 0.9em; margin: 5px 0 0 0;'>PumpVision®</p>
+        <p style='color: #A5D8E6; font-size: 0.9em; margin: 5px 0 0 0;'>SmartFlow®</p>
     </div>
 """, unsafe_allow_html=True)
 
@@ -291,7 +291,7 @@ if page == "📊 Dashboard":
     # EDUR Header
     st.markdown("""
         <div class="edur-header">
-            <h1 class="edur-logo-text">EDUR PumpVision</h1>
+            <h1 class="edur-logo-text">EDUR SmartFlow View</h1>
             <p class="edur-subtitle">Intelligentes Pumpen-Monitoring System</p>
         </div>
     """, unsafe_allow_html=True)
@@ -400,7 +400,7 @@ elif page == "🔍 Pumpendetails":
     # EDUR Header
     st.markdown("""
         <div class="edur-header">
-            <h1 class="edur-logo-text">EDUR PumpVision</h1>
+            <h1 class="edur-logo-text">EDUR SmartFlow</h1>
             <p class="edur-subtitle">Detailansicht & Diagnose</p>
         </div>
     """, unsafe_allow_html=True)
@@ -552,7 +552,7 @@ elif page == "⚠️ Alarmmanagement":
     # EDUR Header
     st.markdown("""
         <div class="edur-header">
-            <h1 class="edur-logo-text">EDUR PumpVision</h1>
+            <h1 class="edur-logo-text">EDUR SmartFlow</h1>
             <p class="edur-subtitle">Alarmmanagement & Monitoring</p>
         </div>
     """, unsafe_allow_html=True)
@@ -601,7 +601,7 @@ elif page == "📈 Berichte & Analysen":
     # EDUR Header
     st.markdown("""
         <div class="edur-header">
-            <h1 class="edur-logo-text">EDUR PumpVision</h1>
+            <h1 class="edur-logo-text">EDUR SmartFlow</h1>
             <p class="edur-subtitle">Berichte & Performance-Analysen</p>
         </div>
     """, unsafe_allow_html=True)
@@ -693,7 +693,7 @@ elif page == "🛠️ Wartungsplanung":
     # EDUR Header
     st.markdown("""
         <div class="edur-header">
-            <h1 class="edur-logo-text">EDUR PumpVision</h1>
+            <h1 class="edur-logo-text">EDUR SmartFlow</h1>
             <p class="edur-subtitle">Wartungsplanung & Service</p>
         </div>
     """, unsafe_allow_html=True)
@@ -749,7 +749,7 @@ st.markdown("""
         <div style='display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap;'>
             <div>
                 <h2 style='margin: 0; letter-spacing: 3px;'>EDUR</h2>
-                <p style='margin: 5px 0; color: #A5D8E6;'>PumpVision® v2.0</p>
+                <p style='margin: 5px 0; color: #A5D8E6;'>SmartFlow® v2.0</p>
             </div>
             <div>
                 <p style='margin: 5px 0;'>📞 Support: +49 (0) 234 123456</p>
