@@ -15,7 +15,7 @@ except ImportError:
 
 # Seitenkonfiguration
 st.set_page_config(
-    page_title="EDUR PumpVision | Pump Monitoring System",
+    page_title="EDUR SmartFlow View | Pump Monitoring System",
     page_icon="💧",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -192,7 +192,7 @@ st.markdown("""
 @st.cache_data
 def generate_pump_data():
     pumps = []
-    pump_types = ["Exzenterschneckenpumpe", "Kreiselpumpe", "Verdrängerpumpe"]
+    pump_types = ["Kreiselpumpe", "Verdrängerpumpe", "Exzenterschneckenpumpe"]
     locations = ["Halle A", "Halle B", "Halle C", "Außenbereich"]
     
     for i in range(1, 11):
