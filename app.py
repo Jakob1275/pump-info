@@ -22,6 +22,10 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
+with st.sidebar:
+    st.image("EDUR.png", use_column_width=True)
+    st.markdown("### SmartFlow®")
+
 # Custom CSS im EDUR-Design (Petrol/Blau mit geschwungenen Elementen)
 st.markdown("""
     <style>
@@ -188,6 +192,27 @@ st.markdown("""
     }
     </style>
 """, unsafe_allow_html=True)
+
+# Header-Logo (oben mittig)
+st.markdown(
+    """
+    <div style="text-align:center; margin-top:-20px; margin-bottom:-40px;">
+        <img src="EDUR.png" width="220">
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
+# Header-Banner
+st.markdown(
+    """
+    <div class="edur-header">
+        <h1 class="edur-logo-text">EDUR SmartFlow View</h1>
+        <p class="edur-subtitle">Intelligentes Pumpen-Monitoring System</p>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 
 # Simulierte Daten generieren
 @st.cache_data
