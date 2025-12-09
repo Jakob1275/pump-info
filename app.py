@@ -22,9 +22,6 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-logo = Image.open("EDUR.png")
-st.image(logo, width=200)
-
 # Custom CSS im EDUR-Design (Petrol/Blau mit geschwungenen Elementen)
 st.markdown("""
     <style>
