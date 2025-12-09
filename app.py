@@ -50,10 +50,22 @@ st.markdown("""
     }
     
     /* Header mit EDUR-Welleneffekt */
-    st.markdown("""
+st.markdown("""
     <style>
-    /* ... andere Styles ... */
+    /* EDUR Farbschema */
+    :root {
+        --edur-petrol: #005C7F;
+        --edur-light-blue: #A5D8E6;
+        --edur-dark-blue: #003D54;
+        --edur-accent: #7EC8E3;
+    }
     
+    /* Haupthintergrund */
+    .main {
+        background: linear-gradient(135deg, #f8fbfd 0%, #e8f4f8 100%);
+    }
+    
+    /* Header mit EDUR-Welleneffekt */
     .edur-header {
         background: linear-gradient(135deg, var(--edur-petrol) 0%, var(--edur-dark-blue) 100%);
         color: white;
@@ -66,14 +78,6 @@ st.markdown("""
         min-height: 120px;  /* Platz für Logo */
     }
     
-    /* Logo Container - muss VOR dem Header kommen */
-    .logo-container {
-        position: absolute;
-        top: -60px;  /* Negativ = über dem Content */
-        right: 30px;
-        z-index: 1000;
-    }
-    
     .edur-header::after {
         content: '';
         position: absolute;
@@ -84,6 +88,14 @@ st.markdown("""
         background: var(--edur-light-blue);
         opacity: 0.3;
         border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+    }
+    
+    /* Logo Container - muss VOR dem Header kommen */
+    .logo-container {
+        position: absolute;
+        top: -60px;  /* Negativ = über dem Content */
+        right: 30px;
+        z-index: 1000;
     }
     
     .edur-logo-text {
