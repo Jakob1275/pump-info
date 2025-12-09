@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 from datetime import datetime, timedelta
 import json
+from PIL import Image
 
 try:
     import plotly.graph_objects as go
@@ -20,6 +21,9 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded"
 )
+
+logo = Image.open("EDUR.png")
+st.image(logo, width=200)
 
 # Custom CSS im EDUR-Design (Petrol/Blau mit geschwungenen Elementen)
 st.markdown("""
