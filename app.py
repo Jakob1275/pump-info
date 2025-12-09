@@ -312,10 +312,10 @@ if page == "📊 Dashboard":
     )
 
     with header_col2:
-    try:
-        st.image("EDUR.png", width=150)
-    except:
-        st.warning("Logo nicht gefunden")
+        try:
+            st.image("EDUR.png", width=150)
+        except:
+            st.warning("Logo nicht gefunden")
     
     st.markdown("**Übersicht auf einen Blick** • Letzte Aktualisierung: " + datetime.now().strftime("%d.%m.%Y %H:%M:%S"))
     
