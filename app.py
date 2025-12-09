@@ -4,6 +4,7 @@ import numpy as np
 from datetime import datetime, timedelta
 import json
 from PIL import Image
+import base64
 
 try:
     import plotly.graph_objects as go
@@ -13,6 +14,13 @@ except ImportError:
     PLOTLY_AVAILABLE = False
     st.error("⚠️ Plotly ist nicht installiert. Bitte installieren Sie es mit: pip install plotly")
     st.stop()
+
+def get_base64_image(image_path):
+    try:
+        with open(image_path, "rb") as img_file:
+            return base64.b64encode(img_file.read()).decode()
+    except:
+        return None
 
 # Seitenkonfiguration
 st.set_page_config(
@@ -320,12 +328,28 @@ if pump_filter:
     filtered_data = filtered_data[filtered_data['typ'].isin(pump_filter)]
 
 # ========== DASHBOARD ==========
-# ========== DASHBOARD ==========
 if page == "📊 Dashboard":
-    # Header mit Logo in Columns
-    header_left, header_right = st.columns([4, 1])
+    # Logo als Base64 laden
+    logo_base64 = get_base64_image("EDUR.png")
     
-    with header_left:
+    # Header mit eingebettetem Logo
+    if logo_base64:
+        st.markdown(
+            f"""
+            <div class="edur-header" style="display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 20px;">
+                <div>
+                    <h1 class="edur-logo-text">EDUR SmartFlow View</h1>
+                    <p class="edur-subtitle">Intelligentes Pumpen-Monitoring System</p>
+                </div>
+                <div>
+                    <img src="data:image/png;base64,{logo_base64}" 
+                         style="height: 70px;">
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+    else:
         st.markdown(
             """
             <div class="edur-header">
@@ -335,10 +359,6 @@ if page == "📊 Dashboard":
             """,
             unsafe_allow_html=True
         )
-    
-    with header_right:
-        st.markdown("<br>", unsafe_allow_html=True)  # Spacer
-        st.image("EDUR.png", width=150)
     
     st.markdown("**Übersicht auf einen Blick** • Letzte Aktualisierung: " + datetime.now().strftime("%d.%m.%Y %H:%M:%S"))
     
