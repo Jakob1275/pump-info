@@ -49,9 +49,6 @@ st.markdown("""
         background: linear-gradient(135deg, #f8fbfd 0%, #e8f4f8 100%);
     }
     
-    /* Header mit EDUR-Welleneffekt */
-st.markdown("""
-    <style>
     /* EDUR Farbschema */
     :root {
         --edur-petrol: #005C7F;
