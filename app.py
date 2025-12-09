@@ -269,12 +269,12 @@ if 'alarm_data' not in st.session_state:
     st.session_state.alarm_data = generate_alarm_data()
 
 # Sidebar Navigation mit EDUR-Branding
-st.sidebar.markdown("""
-    <div style='text-align: center; padding: 20px 0; border-bottom: 2px solid rgba(255,255,255,0.2); margin-bottom: 20px;'>
-        <h1 style='color: white; font-size: 2em; letter-spacing: 3px; margin: 0;'>EDUR</h1>
-        <p style='color: #A5D8E6; font-size: 0.9em; margin: 5px 0 0 0;'>SmartFlow®</p>
-    </div>
-""", unsafe_allow_html=True)
+#st.sidebar.markdown("""
+    #<div style='text-align: center; padding: 20px 0; border-bottom: 2px solid rgba(255,255,255,0.2); margin-bottom: 20px;'>
+        #<h1 style='color: white; font-size: 2em; letter-spacing: 3px; margin: 0;'>EDUR</h1>
+        #<p style='color: #A5D8E6; font-size: 0.9em; margin: 5px 0 0 0;'>SmartFlow®</p>
+   # </div>
+#""", unsafe_allow_html=True)
 
 st.sidebar.title("🔧 Navigation")
 page = st.sidebar.radio(
