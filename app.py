@@ -203,17 +203,6 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# Header-Banner
-st.markdown(
-    """
-    <div class="edur-header">
-        <h1 class="edur-logo-text">EDUR SmartFlow View</h1>
-        <p class="edur-subtitle">Intelligentes Pumpen-Monitoring System</p>
-    </div>
-    """,
-    unsafe_allow_html=True
-)
-
 # Simulierte Daten generieren
 @st.cache_data
 def generate_pump_data():
