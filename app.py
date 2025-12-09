@@ -36,6 +36,13 @@ st.markdown("""
         --edur-dark-blue: #003D54;
         --edur-accent: #7EC8E3;
     }
+
+    .edur-header-logo {
+        position: absolute;
+        right: 30px;      /* Abstand vom rechten Rand */
+        top: 20px;        /* Abstand vom oberen Rand */
+        height: 60px;     /* Logo-Größe anpassen */
+    }
     
     /* Haupthintergrund */
     .main {
@@ -294,12 +301,16 @@ if pump_filter:
 # ========== DASHBOARD ==========
 if page == "📊 Dashboard":
     # EDUR Header
-    st.markdown("""
+    st.markdown(
+        """
         <div class="edur-header">
+            <img src="EDUR.png" class="edur-header-logo">
             <h1 class="edur-logo-text">EDUR SmartFlow View</h1>
             <p class="edur-subtitle">Intelligentes Pumpen-Monitoring System</p>
         </div>
-    """, unsafe_allow_html=True)
+        """,
+        unsafe_allow_html=True
+    )
     
     st.markdown("**Übersicht auf einen Blick** • Letzte Aktualisierung: " + datetime.now().strftime("%d.%m.%Y %H:%M:%S"))
     
