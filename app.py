@@ -400,7 +400,7 @@ elif page == "🔍 Pumpendetails":
     # EDUR Header
     st.markdown("""
         <div class="edur-header">
-            <h1 class="edur-logo-text">EDUR SmartFlow</h1>
+            <h1 class="edur-logo-text">EDUR SmartFlow View</h1>
             <p class="edur-subtitle">Detailansicht & Diagnose</p>
         </div>
     """, unsafe_allow_html=True)
@@ -552,7 +552,7 @@ elif page == "⚠️ Alarmmanagement":
     # EDUR Header
     st.markdown("""
         <div class="edur-header">
-            <h1 class="edur-logo-text">EDUR SmartFlow</h1>
+            <h1 class="edur-logo-text">EDUR SmartFlow View</h1>
             <p class="edur-subtitle">Alarmmanagement & Monitoring</p>
         </div>
     """, unsafe_allow_html=True)
@@ -601,7 +601,7 @@ elif page == "📈 Berichte & Analysen":
     # EDUR Header
     st.markdown("""
         <div class="edur-header">
-            <h1 class="edur-logo-text">EDUR SmartFlow</h1>
+            <h1 class="edur-logo-text">EDUR SmartFlow View</h1>
             <p class="edur-subtitle">Berichte & Performance-Analysen</p>
         </div>
     """, unsafe_allow_html=True)
@@ -693,7 +693,7 @@ elif page == "🛠️ Wartungsplanung":
     # EDUR Header
     st.markdown("""
         <div class="edur-header">
-            <h1 class="edur-logo-text">EDUR SmartFlow</h1>
+            <h1 class="edur-logo-text">EDUR SmartFlow View</h1>
             <p class="edur-subtitle">Wartungsplanung & Service</p>
         </div>
     """, unsafe_allow_html=True)
