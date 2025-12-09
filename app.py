@@ -306,11 +306,16 @@ if page == "📊 Dashboard":
         <div class="edur-header">
             <img src="EDUR.png" class="edur-header-logo">
             <h1 class="edur-logo-text">EDUR SmartFlow View</h1>
-            <p class="edur-subtitle">Intelligentes Pumpen-Monitoring System</p>
         </div>
         """,
         unsafe_allow_html=True
     )
+
+    with header_col2:
+    try:
+        st.image("EDUR.png", width=150)
+    except:
+        st.warning("Logo nicht gefunden")
     
     st.markdown("**Übersicht auf einen Blick** • Letzte Aktualisierung: " + datetime.now().strftime("%d.%m.%Y %H:%M:%S"))
     
