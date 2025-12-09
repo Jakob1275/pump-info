@@ -193,16 +193,6 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# Header-Logo (oben mittig)
-st.markdown(
-    """
-    <div style="text-align:center; margin-top:-20px; margin-bottom:-40px;">
-        <img src="EDUR.png" width="220">
-    </div>
-    """,
-    unsafe_allow_html=True
-)
-
 # Simulierte Daten generieren
 @st.cache_data
 def generate_pump_data():
