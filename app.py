@@ -71,8 +71,7 @@ st.markdown("""
         margin-bottom: 30px;
         box-shadow: 0 4px 15px rgba(0, 92, 127, 0.2);
         position: relative;
-        overflow: visible;  /* WICHTIG: von hidden zu visible ändern */
-        min-height: 120px;  /* Platz für Logo */
+        overflow: hidden;  /* Zurück zu hidden */
     }
     
     .edur-header::after {
@@ -321,24 +320,26 @@ if pump_filter:
     filtered_data = filtered_data[filtered_data['typ'].isin(pump_filter)]
 
 # ========== DASHBOARD ==========
+# ========== DASHBOARD ==========
 if page == "📊 Dashboard":
-    # Logo ZUERST positionieren
-    col_spacer, col_logo = st.columns([5, 1])
-    with col_logo:
-        st.image("EDUR.png", width=120)
+    # Header mit Logo in Columns
+    header_left, header_right = st.columns([4, 1])
     
-    # Dann Header (wird UNTER dem Logo sein wegen Streamlit's Flow)
-    st.markdown(
-        """
-        <div class="edur-header" style="margin-top: -130px;">
-            <h1 class="edur-logo-text">EDUR SmartFlow View</h1>
-            <p class="edur-subtitle">Intelligentes Pumpen-Monitoring System</p>
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
+    with header_left:
+        st.markdown(
+            """
+            <div class="edur-header">
+                <h1 class="edur-logo-text">EDUR SmartFlow View</h1>
+                <p class="edur-subtitle">Intelligentes Pumpen-Monitoring System</p>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
     
-    st.markdown("<br>", unsafe_allow_html=True)  # Abstand nach Header
+    with header_right:
+        st.markdown("<br>", unsafe_allow_html=True)  # Spacer
+        st.image("EDUR.png", width=150)
+    
     st.markdown("**Übersicht auf einen Blick** • Letzte Aktualisierung: " + datetime.now().strftime("%d.%m.%Y %H:%M:%S"))
     
     # Top Metriken
