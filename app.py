@@ -311,11 +311,17 @@ page = st.sidebar.radio(
 # Suchfunktion
 st.sidebar.markdown("---")
 st.sidebar.subheader("🔎 Schnellsuche")
-search_term = st.sidebar.text_input("Pumpen-ID oder Standort")
+search_term = st.sidebar.text_input("Pumpen-ID oder Standort", key="search_term", help="Suche nach ID (z. B. P-003) oder Standort (z. B. Halle A)")
 pump_filter = st.sidebar.multiselect(
     "Pumpentyp filtern:",
-    options=st.session_state.pump_data['typ'].unique()
+    options=st.session_state.pump_data['typ'].unique(),
+    key="pump_filter"
 )
+
+if st.sidebar.button("Filter zurücksetzen", use_container_width=True):
+    st.session_state["search_term"] = ""
+    st.session_state["pump_filter"] = []
+    st.rerun()
 
 # Daten filtern
 filtered_data = st.session_state.pump_data.copy()
@@ -326,6 +332,17 @@ if search_term:
     ]
 if pump_filter:
     filtered_data = filtered_data[filtered_data['typ'].isin(pump_filter)]
+
+no_data = filtered_data.empty
+
+if search_term or pump_filter:
+    st.sidebar.info(
+        f"Aktive Filter: {len(filtered_data)} Treffer" +
+        (f" | Suche: {search_term}" if search_term else "") +
+        (f" | Typen: {', '.join(pump_filter)}" if pump_filter else "")
+    )
+elif no_data:
+    st.sidebar.warning("Keine Pumpen gefunden. Filter zurücksetzen.")
 
 # ========== DASHBOARD ==========
 if page == "📊 Dashboard":
@@ -359,6 +376,11 @@ if page == "📊 Dashboard":
             """,
             unsafe_allow_html=True
         )
+
+    if no_data:
+        st.warning("Keine Pumpen gefunden. Passe die Filter an oder setze sie zurück.")
+        st.info("Tipp: Entferne die Suchbegriffe oder wähle keinen Pumpentyp im Filter.")
+        st.stop()
     
     st.markdown("**Übersicht auf einen Blick** • Letzte Aktualisierung: " + datetime.now().strftime("%d.%m.%Y %H:%M:%S"))
     
@@ -390,7 +412,11 @@ if page == "📊 Dashboard":
         st.subheader("🚨 Top 3 Alarmmeldungen")
         top_alarms = st.session_state.alarm_data[
             st.session_state.alarm_data['status'] == 'Offen'
-        ].sort_values('prioritaet').head(3)
+        ].copy()
+
+        prio_order = {"Hoch": 0, "Mittel": 1, "Niedrig": 2}
+        top_alarms["prio_rank"] = top_alarms["prioritaet"].map(prio_order).fillna(99)
+        top_alarms = top_alarms.sort_values(['prio_rank', 'zeit']).head(3)
         
         if len(top_alarms) > 0:
             for _, alarm in top_alarms.iterrows():
@@ -468,6 +494,10 @@ elif page == "🔍 Pumpendetails":
             <p class="edur-subtitle">Detailansicht & Diagnose</p>
         </div>
     """, unsafe_allow_html=True)
+
+    if no_data:
+        st.warning("Keine Pumpen gefunden. Bitte Filter anpassen oder zurücksetzen.")
+        st.stop()
     
     selected_pump = st.selectbox(
         "Pumpe auswählen:",
@@ -636,8 +666,25 @@ elif page == "⚠️ Alarmmanagement":
         filtered_alarms = filtered_alarms[filtered_alarms['status'].isin(status_filter)]
     if priority_filter:
         filtered_alarms = filtered_alarms[filtered_alarms['prioritaet'].isin(priority_filter)]
+    if isinstance(date_range, (list, tuple)) and len(date_range) == 2:
+        start_date, end_date = date_range
+        start_dt = datetime.combine(start_date, datetime.min.time())
+        end_dt = datetime.combine(end_date, datetime.max.time())
+        filtered_alarms = filtered_alarms[
+            (filtered_alarms['zeit'] >= start_dt) &
+            (filtered_alarms['zeit'] <= end_dt)
+        ]
     
     st.metric("Gefundene Alarme", len(filtered_alarms))
+
+    if filtered_alarms.empty:
+        st.info("Keine Alarme für die gewählten Filter gefunden.")
+        st.dataframe(
+            filtered_alarms[['id', 'pumpe', 'typ', 'prioritaet', 'zeit', 'status', 'empfehlung']],
+            use_container_width=True,
+            height=300
+        )
+        st.stop()
     
     # Alarm-Statistiken
     col1, col2, col3 = st.columns(3)
@@ -669,6 +716,10 @@ elif page == "📈 Berichte & Analysen":
             <p class="edur-subtitle">Berichte & Performance-Analysen</p>
         </div>
     """, unsafe_allow_html=True)
+
+    if no_data:
+        st.warning("Keine Pumpen gefunden. Berichte können nicht berechnet werden.")
+        st.stop()
     
     tab1, tab2, tab3 = st.tabs(["⚡ Energieverbrauch", "⏱️ Ausfallzeiten", "💰 Wartungskosten"])
     
@@ -761,6 +812,10 @@ elif page == "🛠️ Wartungsplanung":
             <p class="edur-subtitle">Wartungsplanung & Service</p>
         </div>
     """, unsafe_allow_html=True)
+
+    if no_data:
+        st.warning("Keine Pumpen gefunden. Wartungsplanung ist derzeit nicht verfügbar.")
+        st.stop()
     
     # Fällige Wartungen
     st.subheader("📅 Anstehende Wartungen")
@@ -817,7 +872,7 @@ st.markdown("""
             </div>
             <div>
                 <p style='margin: 5px 0;'>📞 Support: +49 (0) 234 123456</p>
-                <p style='margin: 5px 0;'>📧 service@.de</p>
+                <p style='margin: 5px 0;'>📧 service@edur.de</p>
             </div>
             <div>
                 <p style='margin: 5px 0;'>🕐 Letzte Aktualisierung:</p>
